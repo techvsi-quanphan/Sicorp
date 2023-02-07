@@ -1,6 +1,5 @@
-import axios from 'axios';
+import verifyToken from '@/middleware/auth';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { headers } from '../handlers/createHeaderKillbill';
 import { search } from '../handlers/search';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -16,5 +15,5 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 	}
 }
 
-export default handler;
+export default verifyToken(handler);
 
