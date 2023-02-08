@@ -6,10 +6,9 @@ import { createUser } from "./createUser";
 
 export const session = async(res: NextApiResponse, reqData: any) =>{
     try{
-
         const config: any = {
             method: "get",
-            url: process.env.NEXT_PUBLIC_BASE_URL + "/accounts/search/" + reqData.Email,
+            url: process.env.NEXT_PUBLIC_BASE_URL + "/accounts/search/" + reqData.email,
             headers: {
                 "X-Killbill-ApiKey": "adobe",
                 "X-Killbill-ApiSecret": "adobe",
@@ -24,6 +23,7 @@ export const session = async(res: NextApiResponse, reqData: any) =>{
         const response = await axios(config);
     
         if (response.data.length > 0) {
+            // console.log(response.data[0]);
             reqData.acccoutId = response.data[0].accountId;
             reqData.paymentMethodId = response.data[0].paymentMethodId;
     

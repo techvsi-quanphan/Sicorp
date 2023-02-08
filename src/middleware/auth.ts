@@ -20,22 +20,22 @@ const verifyToken = (handler: any) => {
     return async (req: NextApiRequest, res: NextApiResponse) => {
         try {
             //check schema of body
-            const options = {
-                abortEarly: false, // include all errors
-                allowUnknown: true, // ignore unknown props
-                stripUnknown: true // remove unknown props
-            };
-            const { error, value } = schema.validate(req.body, options);
-            if (error) {
-                return res.status(400).send('Error format body');
-            } else {
-                req.body = value;
-            }
+            // const options = {
+            //     abortEarly: false, // include all errors
+            //     allowUnknown: true, // ignore unknown props
+            //     stripUnknown: true // remove unknown props
+            // };
+            // const { error, value } = schema.validate(req.body, options);
+            // if (error) {
+            //     return res.status(400).send('Error format body');
+            // } else {
+            //     req.body = value;
+            // }
 
             //check token for authenticate
             const token = req.headers['authorization'] || req.body.token || req.query.token;
             if (!token) {
-                return res.status(403).send('A x-access-token is required for authentication');
+                return res.status(403).send('token is required for authentication');
             }
             const decoded = jsonwebtoken.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET || '');
             return handler(req, res);

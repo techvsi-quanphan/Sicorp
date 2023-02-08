@@ -33,6 +33,7 @@ export const createUser = async (reqData: any) => {
 	const response = await axios(config);
 	if (response.status === 201) {
 		console.log("newuser is created");
+        return true;
 	} else {
 		throw new Error(
 			"Not able to create user on server, please contact administrator"
